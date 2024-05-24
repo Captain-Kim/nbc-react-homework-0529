@@ -7,7 +7,7 @@ const MonthBtnContainer = styled.div`
   grid-template-rows: repeat(2, 1fr);
   grid-gap: 10px;
   width: 1200px;
-  height: 300px;
+  height: 200px;
   background-color: pink;
   border-radius: 10px;
   padding: 20px;
