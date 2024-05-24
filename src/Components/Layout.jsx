@@ -1,15 +1,15 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const MainDiv = styled.div`
-    text-align: center;
-    margin: 30px auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* 상단에 맞춤 */
+  height: 100vh;
+  width: 100%;
 `;
 
 function Layout({ children }) {
-
-    return (
-        <MainDiv>{children}</MainDiv>
-    );
+  return <MainDiv>{children}</MainDiv>;
 }
 
 export default Layout;

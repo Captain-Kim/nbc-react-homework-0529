@@ -1,4 +1,4 @@
-function List() {
+function Form() {
 
     return (
         <>
@@ -6,4 +6,4 @@ function List() {
     );
 }
 
-export default List;
+export default Form;

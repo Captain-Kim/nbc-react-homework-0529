@@ -5,13 +5,19 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
 
   html, body {
-    max-width: 1200px;
+    max-width: 100%;
     min-width: 800px;
     background-color: skyblue;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
 
   #root {
-    margin: 30 auto;
+    margin: 30px auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 
   @font-face {
@@ -30,9 +36,6 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: 'AppleSDGothicNeoB', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
   }
 `;
 
