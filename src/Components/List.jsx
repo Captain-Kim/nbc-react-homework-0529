@@ -1,7 +1,8 @@
 function List() {
 
-    return(
+    return (
         <>
+        <h2>헬로우</h2>
         </>
     );
 }

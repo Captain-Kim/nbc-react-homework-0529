@@ -1,8 +1,14 @@
-function Layout() {
+import styled from "styled-components";
 
-    return(
-        <>
-        </>
+const MainDiv = styled.div`
+    text-align: center;
+    margin: 30px auto;
+`;
+
+function Layout({ children }) {
+
+    return (
+        <MainDiv>{children}</MainDiv>
     );
 }
 
