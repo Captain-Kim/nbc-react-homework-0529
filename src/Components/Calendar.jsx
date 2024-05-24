@@ -17,10 +17,10 @@ const MonthBtnContainer = styled.div`
   margin: 0 auto;
 `;
 
-function Calendar() {
+function Calendar({ clickedMonthBtn, handleClick }) {
   return (
     <MonthBtnContainer>
-      <MonthBtn />
+      <MonthBtn clickedMonthBtn={clickedMonthBtn} handleClick={handleClick} />
     </MonthBtnContainer>
   );
 }
