@@ -8,7 +8,7 @@ function Home({ clickedMonthBtn, handleClick }) {
     <Layout>
       <FormSection />
       <Calendar clickedMonthBtn={clickedMonthBtn} handleClick={handleClick} />
-      <List />
+      <List month={clickedMonthBtn} />
     </Layout>
   );
 }
