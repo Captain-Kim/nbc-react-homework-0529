@@ -1,19 +1,17 @@
 import styled from 'styled-components';
 
 const MainDiv = styled.div`
-  // display: flex;
-  // justify-content: center;
-  // align-items: flex-start;
-  // height: 100vh;
-  // width: 100%;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+  max-width: 1200px;
   padding: 20px;
   box-sizing: border-box;
-  width: 1200px;
+  // background-color: #ffffff;
+  // border-radius: 10px;
+  // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
 `;
 
 function Layout({ children }) {

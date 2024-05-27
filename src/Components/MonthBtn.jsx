@@ -1,13 +1,21 @@
 import styled from 'styled-components';
 
 const StyledMonthBtn = styled.button`
-  background-color: ${(props) => (props.$active ? "blue" : "white")};
+  background-color: ${(props) => (props.$active ? "#2196f3" : "white")};
+  color: ${(props) => (props.$active ? "white" : "black")};
+  border: 1px solid #ccc;
   border-radius: 10px;
-  font-size: 30px;
+  font-size: 16px;
   padding: 10px;
   width: 100%;
-  height: 100%;
+  height: 50px;
   box-sizing: border-box;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: ${(props) => (props.$active ? "#1976d2" : "#e0f7fa")};
+  }
 `;
 
 function MonthBtn({ clickedMonthBtn, handleClick }) {
