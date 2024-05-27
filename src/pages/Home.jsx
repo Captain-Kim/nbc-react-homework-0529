@@ -1,16 +1,9 @@
-import React, { useState } from 'react';
 import Calendar from '../Components/Calendar';
 import List from '../Components/List';
 import Layout from '../Components/Layout';
 import FormSection from '../Components/Form';
 
-function Home() {
-  const [clickedMonthBtn, setClickedMonthBtn] = useState(null);
-
-  const handleClick = (month) => {
-    setClickedMonthBtn(month);
-  };
-
+function Home({ clickedMonthBtn, handleClick }) {
   return (
     <Layout>
       <FormSection />

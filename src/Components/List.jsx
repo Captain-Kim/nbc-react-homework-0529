@@ -41,19 +41,31 @@ const Amount = styled.span`
   text-align: right;
 `;
 
-const List = () => {
+const List = ({ month }) => {
+  const processedData = data.map(item => {
+    const [yyyy, mm, dd] = item.date.split('-');
+    return {
+      ...item,
+      yyyy: parseInt(yyyy),
+      mm: parseInt(mm),
+      dd: parseInt(dd)
+    };
+  });
 
-  return (
-    <ListArea>
-      {data.map(item => (
-        <ListItem key={item.id}>
-          <Date>{item.date}</Date>
-          <Category>{item.item} - {item.description}</Category>
-          <Amount>{item.amount.toLocaleString()} 원</Amount>
-        </ListItem>
-      ))}
-    </ListArea>
-  );
+const filteredData = processedData.filter(item => item.mm === (month + 1));
+
+return (
+  <ListArea>
+    {(month === -1 ? data : filteredData).map(item => (
+      <ListItem key={item.id}>
+        <Date>{item.date}</Date>
+        <Category>{item.item} - {item.description}</Category>
+        <Amount>{item.amount.toLocaleString()} 원</Amount>
+      </ListItem>
+    ))}
+  </ListArea>
+);
 };
+
 
 export default List;

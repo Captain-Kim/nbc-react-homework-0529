@@ -10,8 +10,6 @@ function App() {
     setClickedMonthBtn(index);
   };
 
-  
-
   return (
     <Routes>
       <Route path="/" element={<Home clickedMonthBtn={clickedMonthBtn} handleClick={handleClick} />} />
