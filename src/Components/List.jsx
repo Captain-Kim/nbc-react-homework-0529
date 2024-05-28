@@ -1,29 +1,21 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import data from '../FakeData';
 
 const ListArea = styled.div`
-  padding: 20px;
-  background-color: #f0f4f8;
+  padding: 10px;
+  background-color: #e0f7fa;
   border-radius: 10px;
-  width: 100%;
-  max-width: 1200px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 1200px;
 `;
 
 const ListItem = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 15px;
-  margin: 10px 0;
+  padding: 10px;
+  margin: 5px 0;
   background-color: #ffffff;
   border-radius: 5px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #e0f7fa;
-  }
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 `;
 
 const Date = styled.span`
@@ -42,46 +34,12 @@ const Amount = styled.span`
   text-align: right;
 `;
 
-const List = ({ clickedMonthBtn }) => {
-  const [filteredData, setFilteredData] = useState(data);
-
-  const processedData = useMemo(() => data.map(item => {
-    const [yyyy, mm, dd] = item.date.split('-');
-    return {
-      ...item,
-      yyyy: parseInt(yyyy),
-      mm: parseInt(mm),
-      dd: parseInt(dd)
-    };
-  }), []);
-
-  useEffect(() => {
-    if (clickedMonthBtn === null) {
-      setFilteredData(processedData);
-    } else {
-      const filtered = processedData.filter(item => item.mm === (clickedMonthBtn + 1));
-      setFilteredData(filtered);
-      // localStorage.setItem('filteredData', JSON.stringify(filtered));
-      localStorage.setItem('selectedMonth', clickedMonthBtn);
-    }
-  }, [clickedMonthBtn, processedData]);
-
-  useEffect(() => {
-    const savedMonth = localStorage.getItem('selectedMonth');
-    if (savedMonth !== null) {
-      // const savedData = localStorage.getItem('filteredData');
-      // if (savedData) {
-      //   setFilteredData(JSON.parse(savedData));
-      // }
-
-      // 로컬 스토리지 getItem filteredData를 안 쓰도록 변경해볼 것.
-      const renderedData = processedData.filter((data) => { data.mm === savedMonth });
-      setFilteredData(renderedData);
-
-    }
-  }, [processedData]);
-
-  console.log("Current month:", clickedMonthBtn);
+const List = ({ clickedMonthBtn, data }) => {
+  console.log('List received data:', data);
+  const filteredData = clickedMonthBtn === null ? data : data.filter(item => {
+    const [, mm] = item.date.split('-');
+    return parseInt(mm) === clickedMonthBtn + 1;
+  });
 
   return (
     <ListArea>

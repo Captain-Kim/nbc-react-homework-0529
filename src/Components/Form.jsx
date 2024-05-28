@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { v4 as uuidv4 } from 'uuid';
+import { useState } from 'react';
 
 const InputArea = styled.div`
   display: flex;
@@ -36,14 +38,41 @@ const Button = styled.button`
   }
 `;
 
-const Form = () => {
+const Form = ({ addData }) => {
+  const [date, setDate] = useState('');
+  const [item, setItem] = useState('');
+  const [amount, setAmount] = useState('');
+  const [description, setDescription] = useState('');
+
+  const handleSubmit = () => {
+    if (!date || !item || !amount || !description) {
+      alert("값을 입력해주세요.");
+      return;
+    }
+
+    const newEntry = {
+      id: uuidv4(),
+      date,
+      item,
+      amount: parseInt(amount),
+      description,
+    };
+    console.log('사용자가 새로 추가한 값:', newEntry);
+    addData(newEntry);
+
+    setDate('');
+    setItem('');
+    setAmount('');
+    setDescription('');
+  };
+
   return (
     <InputArea>
-      <Input type="date" placeholder="날짜" />
-      <Input type="text" placeholder="지출 항목" />
-      <Input type="number" placeholder="지출 금액" />
-      <Input type="text" placeholder="지출 내용" />
-      <Button>저장</Button>
+      <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+      <Input type="text" value={item} onChange={(e) => setItem(e.target.value)} placeholder="지출 항목" />
+      <Input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="지출 금액" />
+      <Input type="text" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="지출 내용" />
+      <Button onClick={handleSubmit}>저장</Button>
     </InputArea>
   );
 };
