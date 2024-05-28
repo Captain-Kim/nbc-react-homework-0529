@@ -1,3 +1,4 @@
+import React, { useState, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import data from '../FakeData';
 
@@ -41,8 +42,10 @@ const Amount = styled.span`
   text-align: right;
 `;
 
-const List = ({ month }) => {
-  const processedData = data.map(item => {
+const List = ({ clickedMonthBtn }) => {
+  const [filteredData, setFilteredData] = useState(data);
+
+  const processedData = useMemo(() => data.map(item => {
     const [yyyy, mm, dd] = item.date.split('-');
     return {
       ...item,
@@ -50,22 +53,47 @@ const List = ({ month }) => {
       mm: parseInt(mm),
       dd: parseInt(dd)
     };
-  });
+  }), []);
 
-const filteredData = processedData.filter(item => item.mm === (month + 1));
+  useEffect(() => {
+    if (clickedMonthBtn === null) {
+      setFilteredData(processedData);
+    } else {
+      const filtered = processedData.filter(item => item.mm === (clickedMonthBtn + 1));
+      setFilteredData(filtered);
+      // localStorage.setItem('filteredData', JSON.stringify(filtered));
+      localStorage.setItem('selectedMonth', clickedMonthBtn);
+    }
+  }, [clickedMonthBtn, processedData]);
 
-return (
-  <ListArea>
-    {(month === -1 ? data : filteredData).map(item => (
-      <ListItem key={item.id}>
-        <Date>{item.date}</Date>
-        <Category>{item.item} - {item.description}</Category>
-        <Amount>{item.amount.toLocaleString()} 원</Amount>
-      </ListItem>
-    ))}
-  </ListArea>
-);
+  useEffect(() => {
+    const savedMonth = localStorage.getItem('selectedMonth');
+    if (savedMonth !== null) {
+      // const savedData = localStorage.getItem('filteredData');
+      // if (savedData) {
+      //   setFilteredData(JSON.parse(savedData));
+      // }
+
+      // 로컬 스토리지 getItem filteredData를 안 쓰도록 변경해볼 것.
+      const renderedData = processedData.filter((data) => { data.mm === savedMonth });
+      setFilteredData(renderedData);
+
+    }
+  }, [processedData]);
+
+  console.log("Current month:", clickedMonthBtn);
+
+  return (
+    <ListArea>
+      {filteredData.map(item => (
+        <ListItem key={item.id}>
+          <Date>{item.date}</Date>
+          <Category>{item.item} - {item.description}</Category>
+          <Amount>{item.amount.toLocaleString()} 원</Amount>
+        </ListItem>
+      ))}
+    </ListArea>
+  );
 };
-
 
 export default List;
