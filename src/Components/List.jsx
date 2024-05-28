@@ -16,6 +16,7 @@ const ListItem = styled.div`
   background-color: #ffffff;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 `;
 
 const Date = styled.span`
@@ -35,7 +36,6 @@ const Amount = styled.span`
 `;
 
 const List = ({ clickedMonthBtn, data, onItemSelect }) => {
-  console.log('현재 data 배열:', data);
   const filteredData = clickedMonthBtn === null ? data : data.filter(item => {
     const [, mm] = item.date.split('-');
     return parseInt(mm) === clickedMonthBtn + 1;
@@ -44,7 +44,10 @@ const List = ({ clickedMonthBtn, data, onItemSelect }) => {
   return (
     <ListArea>
       {filteredData.map(item => (
-        <ListItem key={item.id} onClick={() =>  onItemSelect(item.id)}>
+        <ListItem key={item.id} onClick={() => {
+          console.log("현재 클릭한 아이템:", item);
+          onItemSelect(item.id);
+        }}>
           <Date>{item.date}</Date>
           <Category>{item.item} - {item.description}</Category>
           <Amount>{item.amount.toLocaleString()} 원</Amount>
