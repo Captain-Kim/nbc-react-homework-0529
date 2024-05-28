@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom'; // 수정된 부분
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -80,7 +80,7 @@ const Button = styled.button`
 
 const Detail = ({ onItemUpdate, onItemDelete }) => {
   const location = useLocation();
-  const navigate = useNavigate(); // 추가된 부분
+  const navigate = useNavigate();
   const { item } = location.state;
 
   const dateRef = useRef();
@@ -133,7 +133,7 @@ const Detail = ({ onItemUpdate, onItemDelete }) => {
       <ButtonGroup>
         <Button onClick={handleUpdate}>수정</Button>
         <Button onClick={handleDelete}>삭제</Button>
-        <Button onClick={() => navigate(-1)}>뒤로 가기</Button> {/* 수정된 부분 */}
+        <Button onClick={() => navigate(-1)}>뒤로 가기</Button>
       </ButtonGroup>
     </Container>
   );
