@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const ListArea = styled.div`
   padding: 10px;
-  background-color: #e0f7fa;
+  background-color: #f0f4f8;
   border-radius: 10px;
   width: 1200px;
 `;
@@ -34,8 +34,8 @@ const Amount = styled.span`
   text-align: right;
 `;
 
-const List = ({ clickedMonthBtn, data }) => {
-  console.log('List received data:', data);
+const List = ({ clickedMonthBtn, data, onItemSelect }) => {
+  console.log('현재 data 배열:', data);
   const filteredData = clickedMonthBtn === null ? data : data.filter(item => {
     const [, mm] = item.date.split('-');
     return parseInt(mm) === clickedMonthBtn + 1;
@@ -44,7 +44,7 @@ const List = ({ clickedMonthBtn, data }) => {
   return (
     <ListArea>
       {filteredData.map(item => (
-        <ListItem key={item.id}>
+        <ListItem key={item.id} onClick={() =>  onItemSelect(item.id)}>
           <Date>{item.date}</Date>
           <Category>{item.item} - {item.description}</Category>
           <Amount>{item.amount.toLocaleString()} 원</Amount>

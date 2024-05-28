@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom'; // 수정된 부분
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -77,29 +78,62 @@ const Button = styled.button`
   }
 `;
 
-const Detail = () => {
+const Detail = ({ onItemUpdate, onItemDelete }) => {
+  const location = useLocation();
+  const navigate = useNavigate(); // 추가된 부분
+  const { item } = location.state;
+
+  const dateRef = useRef();
+  const itemRef = useRef();
+  const amountRef = useRef();
+  const descriptionRef = useRef();
+
+  useEffect(() => {
+    if (item) {
+      dateRef.current.value = item.date;
+      itemRef.current.value = item.item;
+      amountRef.current.value = item.amount;
+      descriptionRef.current.value = item.description;
+    }
+  }, [item]);
+
+  const handleUpdate = () => {
+    const updatedItem = {
+      ...item,
+      date: dateRef.current.value,
+      item: itemRef.current.value,
+      amount: parseInt(amountRef.current.value, 10),
+      description: descriptionRef.current.value
+    };
+    onItemUpdate(updatedItem);
+  };
+
+  const handleDelete = () => {
+    onItemDelete(item.id);
+  };
+
   return (
     <Container>
       <FormGroup>
         <Label>날짜</Label>
-        <Input type="date" defaultValue="2024-02-02" />
+        <Input type="date" ref={dateRef} />
       </FormGroup>
       <FormGroup>
         <Label>항목</Label>
-        <Input type="text" defaultValue="식비" />
+        <Input type="text" ref={itemRef} />
       </FormGroup>
       <FormGroup>
         <Label>금액</Label>
-        <Input type="number" defaultValue="50000" />
+        <Input type="number" ref={amountRef} />
       </FormGroup>
       <FormGroup>
         <Label>내용</Label>
-        <Input type="text" defaultValue="회식" />
+        <Input type="text" ref={descriptionRef} />
       </FormGroup>
       <ButtonGroup>
-        <Button>수정</Button>
-        <Button>삭제</Button>
-        <Button>뒤로 가기</Button>
+        <Button onClick={handleUpdate}>수정</Button>
+        <Button onClick={handleDelete}>삭제</Button>
+        <Button onClick={() => navigate(-1)}>뒤로 가기</Button> {/* 수정된 부분 */}
       </ButtonGroup>
     </Container>
   );
