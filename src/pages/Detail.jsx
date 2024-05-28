@@ -1,6 +1,7 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { DataContext } from '../DataContext';
 
 const Container = styled.div`
   display: flex;
@@ -78,7 +79,8 @@ const Button = styled.button`
   }
 `;
 
-const Detail = ({ onItemUpdate, onItemDelete }) => {
+const Detail = () => {
+  const { handleItemUpdate, handleItemDelete } = useContext(DataContext);
   const location = useLocation();
   const navigate = useNavigate();
   const { item } = location.state;
@@ -105,11 +107,13 @@ const Detail = ({ onItemUpdate, onItemDelete }) => {
       amount: parseInt(amountRef.current.value, 10),
       description: descriptionRef.current.value
     };
-    onItemUpdate(updatedItem);
+    handleItemUpdate(updatedItem);
+    navigate('/');
   };
 
   const handleDelete = () => {
-    onItemDelete(item.id);
+    handleItemDelete(item.id);
+    navigate('/');
   };
 
   return (

@@ -1,18 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { DataContext } from '../DataContext';
 import Calendar from '../Components/Calendar';
 import List from '../Components/List';
 import Layout from '../Components/Layout';
 import Form from '../Components/Form';
 
-function Home({ data, onItemSelect, addData, clickedMonthBtn, handleClick }) {
-  const [newData, setNewData] = useState(data);
+function Home() {
+  const {
+    newData,
+    clickedMonthBtn,
+    handleItemSelect,
+    addData,
+    handleClick,
+    setClickedMonthBtn,
+  } = useContext(DataContext);
 
   useEffect(() => {
     const savedMonth = localStorage.getItem('selectedMonth');
     if (savedMonth !== null) {
       setClickedMonthBtn(parseInt(savedMonth, 10));
     }
-  }, []);
+  }, [setClickedMonthBtn]);
 
   useEffect(() => {
     if (clickedMonthBtn !== null) {
@@ -24,7 +32,7 @@ function Home({ data, onItemSelect, addData, clickedMonthBtn, handleClick }) {
     <Layout>
       <Form addData={addData} />
       <Calendar clickedMonthBtn={clickedMonthBtn} handleClick={handleClick} />
-      <List clickedMonthBtn={clickedMonthBtn} data={newData} onItemSelect={onItemSelect} />
+      <List clickedMonthBtn={clickedMonthBtn} data={newData} onItemSelect={handleItemSelect} />
     </Layout>
   );
 }
