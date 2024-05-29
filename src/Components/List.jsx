@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { DataContext } from '../DataContext';
 
 const ListArea = styled.div`
   padding: 10px;
@@ -35,8 +36,11 @@ const Amount = styled.span`
   text-align: right;
 `;
 
-const List = ({ clickedMonthBtn, data, onItemSelect }) => {
-  const filteredData = clickedMonthBtn === null ? data : data.filter(item => {
+const List = ({handleSelect}) => {
+
+  const { clickedMonthBtn, newData } = useContext(DataContext);
+
+  const filteredData = clickedMonthBtn === null ? newData : newData.filter(item => {
     const [, mm] = item.date.split('-');
     return parseInt(mm) === clickedMonthBtn + 1;
   });
@@ -46,7 +50,7 @@ const List = ({ clickedMonthBtn, data, onItemSelect }) => {
       {filteredData.map(item => (
         <ListItem key={item.id} onClick={() => {
           console.log("현재 클릭한 아이템:", item);
-          onItemSelect(item.id);
+          handleSelect(item.id);
         }}>
           <Date>{item.date}</Date>
           <Category>{item.item} - {item.description}</Category>

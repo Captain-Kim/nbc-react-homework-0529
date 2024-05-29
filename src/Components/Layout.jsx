@@ -14,6 +14,7 @@ const MainDiv = styled.div`
   margin: 20px auto;
 `;
 
+// max-width 등 컴포넌트의 공통적인 레이아웃 CSS를 자식들에게 모두 적용시킴.
 function Layout({ children }) {
   return <MainDiv>{children}</MainDiv>;
 }

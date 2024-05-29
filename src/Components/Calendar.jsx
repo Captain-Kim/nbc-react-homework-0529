@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import MonthBtn from './MonthBtn';
+import { useContext } from 'react';
+import { DataContext } from '../DataContext';
 
 const MonthBtnContainer = styled.div`
   display: grid;
@@ -18,10 +20,11 @@ const MonthBtnContainer = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
-function Calendar({ clickedMonthBtn, handleClick }) {
+function Calendar() {
+
   return (
     <MonthBtnContainer>
-      <MonthBtn clickedMonthBtn={clickedMonthBtn} handleClick={handleClick} />
+      <MonthBtn />
     </MonthBtnContainer>
   );
 }
