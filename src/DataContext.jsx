@@ -5,25 +5,25 @@ export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
   const [newData, setNewData] = useState(data);
-  const [selectedItem, setSelectedItem] = useState(null);
+  // const [selectedItem, setSelectedItem] = useState(null);
   const [clickedMonthBtn, setClickedMonthBtn] = useState(() => {
     const savedMonth = localStorage.getItem('selectedMonth');
     return savedMonth !== null ? parseInt(savedMonth, 10) : null;
   });
 
-  const handleItemSelect = (id) => {
-    const item = newData.find(item => item.id === id);
-    setSelectedItem(item);
-  };
+  // const handleItemSelect = (id) => {
+  //   const item = newData.find(item => item.id === id);
+  //   setSelectedItem(item);
+  // };
 
   const handleItemUpdate = (updatedItem) => {
     setNewData(newData.map(item => item.id === updatedItem.id ? updatedItem : item));
-    setSelectedItem(null);
+    // setSelectedItem(null);
   };
 
   const handleItemDelete = (id) => {
     setNewData(newData.filter(item => item.id !== id));
-    setSelectedItem(null);
+    // setSelectedItem(null);
   };
 
   const addData = (newInput) => {
@@ -42,9 +42,9 @@ export const DataProvider = ({ children }) => {
     <DataContext.Provider
       value={{
         newData,
-        selectedItem,
+        // selectedItem,
         clickedMonthBtn,
-        handleItemSelect,
+        // handleItemSelect,
         handleItemUpdate,
         handleItemDelete,
         addData,
