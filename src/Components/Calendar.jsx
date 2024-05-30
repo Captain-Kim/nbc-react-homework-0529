@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 import MonthBtn from './MonthBtn';
-import { useContext } from 'react';
-import { DataContext } from '../DataContext';
 
 const MonthBtnContainer = styled.div`
   display: grid;

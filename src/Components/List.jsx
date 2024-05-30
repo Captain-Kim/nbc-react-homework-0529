@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { DataContext } from '../DataContext';
+import { useSelector } from 'react-redux';
 
 const ListArea = styled.div`
   padding: 10px;
@@ -38,11 +37,14 @@ const Amount = styled.span`
 
 const List = ({handleSelect}) => {
 
-  const { clickedMonthBtn, newData } = useContext(DataContext);
+  const book = useSelector((state)=>state.book.book);
+  const month = useSelector((state)=>state.book.month);
+  
+  console.log(book);
 
-  const filteredData = clickedMonthBtn === null ? newData : newData.filter(item => {
+  const filteredData = month === null ? book : book.filter(item => {
     const [, mm] = item.date.split('-');
-    return parseInt(mm) === clickedMonthBtn + 1;
+    return parseInt(mm) === month + 1;
   });
 
   return (

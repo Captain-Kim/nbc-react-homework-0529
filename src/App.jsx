@@ -1,13 +1,17 @@
 import React from 'react';
-import { DataProvider } from './DataContext';
 import Router from './Router/Router.jsx';
+import { Provider } from 'react-redux';
+import store from './redux/store.js';
+
+// 만든 리덕스 사용법
+// 1. useDispatch 2. useSelector 3. action import
 
 function App() {
   return (
     <>
-      <DataProvider>
+      <Provider store={store}>
         <Router />
-      </DataProvider>
+      </Provider>
     </>
   );
 }
